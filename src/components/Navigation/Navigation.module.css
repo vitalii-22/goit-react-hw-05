@@ -1,5 +1,13 @@
-.header {
+.nav {
   margin: 0 auto;
   display: flex;
   gap: 10px;
+}
+
+.navLink {
+  display: block;
+}
+
+.active {
+  border: 1px solid black;
 }

@@ -3,23 +3,21 @@ import css from './Navigation.module.css';
 import clsx from 'clsx';
 
 const getNavLinkClassNames = ({ isActive }) =>
-  clsx(css.headerLink, {
+  clsx(css.navLink, {
     [css.active]: isActive,
   });
 
-const Navigation = ({ children }) => {
+const Navigation = () => {
   return (
     <div>
-      <header className={css.header}>
-        <NavLink className={getNavLinkClassNames} to="/">
+      <nav className={css.nav}>
+        <NavLink to="/" className={getNavLinkClassNames}>
           Home
         </NavLink>
-        <NavLink className={getNavLinkClassNames} to="/movies" end>
+        <NavLink to="/movies" className={getNavLinkClassNames}>
           Movies
         </NavLink>
-      </header>
-
-      <main>{children}</main>
+      </nav>
     </div>
   );
 };
