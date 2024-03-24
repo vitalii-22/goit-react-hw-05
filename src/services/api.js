@@ -1,18 +1,35 @@
 import axios from 'axios';
 
-const url =
-  'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1';
+const apiKey =
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MGIzN2M1ZGZkMzM1YzIzMTE0MzE0MTM2YzQ3YWYyMiIsInN1YiI6IjY1ZmZlZjJhNzcwNzAwMDE3YzBkYTlhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.en9D-lK2J3eY46sTE3LD0bYfZqHmBwv9mMb4Z3xP5DI';
 
 const options = {
   headers: {
-    // Замість api_read_access_token вставте свій токен
-    Authorization:
-      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MGIzN2M1ZGZkMzM1YzIzMTE0MzE0MTM2YzQ3YWYyMiIsInN1YiI6IjY1ZmZlZjJhNzcwNzAwMDE3YzBkYTlhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.en9D-lK2J3eY46sTE3LD0bYfZqHmBwv9mMb4Z3xP5DI',
+    Authorization: `Bearer ${apiKey}`,
   },
 };
 
 export const requestMovies = async () => {
-  const { data } = await axios.get(url, options);
+  const { data } = await axios.get(
+    'https://api.themoviedb.org/3/person/popular?language=en-US&page=1',
+    options
+  );
+  return data;
+};
+
+export const requestMoviesByQuery = async query => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+    options
+  );
+  return data;
+};
+
+export const requestMoviesById = async id => {
+  const { data } = await axios.get(
+    `'https://api.themoviedb.org/3/movie/${id}?language=en-US'`,
+    options
+  );
   return data;
 };
 

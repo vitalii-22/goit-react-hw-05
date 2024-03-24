@@ -3,8 +3,9 @@
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import MoviesPage from './pages/MoviesPage';
+import HomePage from './pages/HomePage/HomePage';
+import MoviesPage from './pages/MoviesPage/MoviesPage';
+import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
 
 // const HomePage = lazy(() => import('./pages/HomePage'));
 // const MoviesPage = lazy(() => import('./pages/MoviesPage'));
@@ -12,12 +13,13 @@ import MoviesPage from './pages/MoviesPage';
 function App() {
   return (
     <>
-      <Navigation />
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-      </Routes>
+      <Navigation>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
+        </Routes>
+      </Navigation>
     </>
   );
 }

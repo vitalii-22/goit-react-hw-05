@@ -7,7 +7,7 @@ const getNavLinkClassNames = ({ isActive }) =>
     [css.active]: isActive,
   });
 
-const Navigation = () => {
+const Navigation = ({ children }) => {
   return (
     <div>
       <nav className={css.nav}>
@@ -18,6 +18,8 @@ const Navigation = () => {
           Movies
         </NavLink>
       </nav>
+
+      <main>{children}</main>
     </div>
   );
 };
