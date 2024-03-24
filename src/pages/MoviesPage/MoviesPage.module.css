@@ -28,7 +28,7 @@
   outline: none;
   background: rgb(144, 144, 184);
   border: none;
-  transition: backround 250ms ease-in-out;
+  transition: background 250ms ease-in-out;
 }
 
 .formButton:hover {

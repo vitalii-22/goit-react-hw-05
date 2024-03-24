@@ -9,7 +9,10 @@ const MovieList = ({ movies }) => {
         movies.map(movie => {
           return (
             <li className={css.moviesItem} key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>{movie.original_name}</Link>
+              <Link to={`/movies/${movie.id}`}>
+                {movie.original_title}
+                {movie.original_name}
+              </Link>
             </li>
           );
         })}

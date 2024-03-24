@@ -1,1 +1,16 @@
+.movieWrapper {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
 
+.image {
+  width: 300px;
+  object-fit: cover;
+}
+
+.informWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
