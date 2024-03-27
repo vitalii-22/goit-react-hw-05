@@ -1,19 +1,9 @@
 import { useEffect, useState } from 'react';
-import css from './MoviesPage.module.css';
-// import toast, { Toaster } from 'react-hot-toast';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
 import MovieList from '../../components/MovieList/MovieList';
 import { requestMoviesByQuery } from '../../services/api';
-
-// const notify = () =>
-//   toast('Please enter a search parameter!', {
-//     style: {
-//       borderRadius: '50px',
-//       background: '#333',
-//       color: '#fff',
-//     },
-//   });
+import SearchForm from '../../components/SearchForm/SearchForm';
 
 const MoviesPage = () => {
   const [query, setQuery] = useState(null);
@@ -21,18 +11,8 @@ const MoviesPage = () => {
   const [isError, setIsError] = useState(false);
   const [movies, setMovies] = useState(null);
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-
-    const form = evt.target;
-    if (form.elements.search.value.trim() === '') {
-      alert('pless');
-      // notify();
-    }
-
-    setQuery(form.elements.search.value.toLowerCase());
-
-    form.reset();
+  const fetchQuery = valueSearch => {
+    setQuery(valueSearch);
   };
 
   useEffect(() => {
@@ -43,7 +23,6 @@ const MoviesPage = () => {
         setIsLoading(true);
         const { results } = await requestMoviesByQuery(query);
         setMovies(results);
-        console.log(results);
       } catch (error) {
         setIsError(true);
       } finally {
@@ -55,20 +34,7 @@ const MoviesPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={css.form}>
-        <input
-          className={css.formInput}
-          type="text"
-          name="search"
-          autoComplete="off"
-          placeholder="Search images and photos"
-        />
-        <button className={css.formButton} type="submit">
-          Search
-        </button>
-      </form>
-      {/* <Toaster /> */}
-
+      <SearchForm onSubmit={fetchQuery} />
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
 

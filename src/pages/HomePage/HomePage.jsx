@@ -15,7 +15,6 @@ const HomePage = () => {
         setIsLoading(true);
         const { results } = await requestMovies();
         setPopularMovies(results);
-        console.log(results);
       } catch (error) {
         setIsError(true);
       } finally {

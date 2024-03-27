@@ -18,6 +18,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:movieId/*" element={<MovieDetailsPage />} />
+          <Route path="*" element={<Navigation to="/" replace />} />
         </Routes>
       </Navigation>
     </>

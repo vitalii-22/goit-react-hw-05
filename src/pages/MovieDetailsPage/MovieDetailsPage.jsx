@@ -1,16 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { NavLink, Route, Routes, useParams } from 'react-router-dom';
 import { requestMoviesById } from '../../services/api';
+import MovieReviews from '../../components/MovieReviews/MovieReviews';
+import MovieCast from '../../components/MovieCast/MovieCast';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
+import clsx from 'clsx';
 import css from './MovieDetailsPage.module.css';
-import MovieCast from '../../components/MovieCast/MovieCast';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  const getNavLinkClassNames = ({ isActive }) =>
+    clsx(css.navLink, {
+      [css.active]: isActive,
+    });
 
   useEffect(() => {
     async function getMovie() {
@@ -62,14 +69,18 @@ const MovieDetailsPage = () => {
           </div>
         )}
       </div>
-
+      <div className={css.navLinkWrapper}>
+        <NavLink to="cast" className={getNavLinkClassNames}>
+          Cast
+        </NavLink>
+        <NavLink to="reviews" className={getNavLinkClassNames}>
+          Reviews
+        </NavLink>
+      </div>
       <Routes>
         <Route path="cast" element={<MovieCast />} />
+        <Route path="reviews" element={<MovieReviews />} />
       </Routes>
-
-      {/* <Link to={`/movies/${movie.id}`}>
-        <MovieCast />
-      </Link> */}
     </>
   );
 };

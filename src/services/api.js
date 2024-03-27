@@ -11,7 +11,7 @@ const options = {
 
 export const requestMovies = async () => {
   const { data } = await axios.get(
-    'https://api.themoviedb.org/3/person/popular?language=en-US&page=1',
+    'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
     options
   );
   return data;
@@ -35,8 +35,18 @@ export const requestMoviesById = async id => {
 
 export const requestMoviesCast = async id => {
   const { data } = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US&page=1`,
     options
   );
   return data;
 };
+
+export const requestMoviesReviews = async id => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`,
+    options
+  );
+  return data;
+};
+
+//
