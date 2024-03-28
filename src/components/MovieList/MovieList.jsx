@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import css from './MovieList.module.css';
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, location }) => {
   return (
     <ul className={css.moviesList}>
       {movies !== null &&
@@ -9,7 +9,9 @@ const MovieList = ({ movies }) => {
         movies.map(movie => {
           return (
             <li className={css.moviesItem} key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.original_title}</Link>
+              <Link state={location} to={`/movies/${movie.id}`}>
+                {movie.original_title}
+              </Link>
             </li>
           );
         })}

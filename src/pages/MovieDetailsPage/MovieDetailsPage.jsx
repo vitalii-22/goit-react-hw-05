@@ -1,18 +1,34 @@
-import { useEffect, useState } from 'react';
-import { NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { lazy, useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { requestMoviesById } from '../../services/api';
-import MovieReviews from '../../components/MovieReviews/MovieReviews';
-import MovieCast from '../../components/MovieCast/MovieCast';
+
+const MovieReviews = lazy(() =>
+  import('../../components/MovieReviews/MovieReviews')
+);
+const MovieCast = lazy(() => import('../../components/MovieCast/MovieCast'));
+
+// import MovieReviews from '../../components/MovieReviews/MovieReviews';
+// import MovieCast from '../../components/MovieCast/MovieCast';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
 import clsx from 'clsx';
 import css from './MovieDetailsPage.module.css';
+import { Suspense } from 'react';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? '/');
 
   const getNavLinkClassNames = ({ isActive }) =>
     clsx(css.navLink, {
@@ -39,6 +55,7 @@ const MovieDetailsPage = () => {
       <div>
         {isError && <ErrorMessage />}
         {isLoading && <Loader />}
+
         {movie !== null && (
           <div className={css.movieWrapper}>
             <img
@@ -48,6 +65,10 @@ const MovieDetailsPage = () => {
             />
 
             <div className={css.informWrapper}>
+              <Link className={css.linkGoBack} to={backLinkRef.current}>
+                Go back
+              </Link>
+
               <h1>{movie.original_title}</h1>
               <div>
                 <h3>Overview: </h3>
@@ -77,10 +98,13 @@ const MovieDetailsPage = () => {
           Reviews
         </NavLink>
       </div>
-      <Routes>
-        <Route path="cast" element={<MovieCast />} />
-        <Route path="reviews" element={<MovieReviews />} />
-      </Routes>
+
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Routes>
+      </Suspense>
     </>
   );
 };
