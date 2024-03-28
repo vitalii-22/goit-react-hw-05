@@ -1,6 +1,7 @@
 .movieWrapper {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
   gap: 30px;
   margin-top: 30px;
 }
