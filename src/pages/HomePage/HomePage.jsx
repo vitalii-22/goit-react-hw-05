@@ -28,7 +28,7 @@ const HomePage = () => {
     <>
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
-      <MovieList movies={popularMovies} />
+      {popularMovies !== null && <MovieList movies={popularMovies} />}
     </>
   );
 };

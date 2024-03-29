@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { requestMoviesByQuery } from '../../services/api';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
@@ -7,13 +7,11 @@ import MovieList from '../../components/MovieList/MovieList';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 const MoviesPage = () => {
-  // const [query, setQuery] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [movies, setMovies] = useState(null);
   const query = searchParams.get('query');
-  const location = useLocation();
 
   const fetchQuery = valueSearch => {
     setSearchParams({ query: valueSearch });
@@ -42,7 +40,7 @@ const MoviesPage = () => {
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
 
-      <MovieList location={location} movies={movies} />
+      <MovieList movies={movies} />
     </>
   );
 };
